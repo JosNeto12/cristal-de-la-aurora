@@ -1,0 +1,11 @@
+{
+  "name": "cristal-de-la-aurora",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "JRPG original estilo Final Fantasy de SNES, en HTML5 Canvas sin dependencias.",
+  "scripts": {
+    "start": "node server.mjs 5123",
+    "test": "node tests/audio.mjs && node tests/validate.mjs && node tests/battle-sim.mjs && node tests/battle-flow.mjs && node tests/playthrough.mjs"
+  }
+}

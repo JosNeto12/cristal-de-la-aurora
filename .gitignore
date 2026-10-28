@@ -1,0 +1,9 @@
+# Perfiles temporales de navegadores usados para capturas
+.chrome-*/
+.edge-profile/
+
+# Dependencias (el proyecto no usa ninguna, pero por si acaso)
+node_modules/
+
+# Registros
+*.log

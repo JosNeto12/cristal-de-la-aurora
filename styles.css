@@ -1,0 +1,104 @@
+/* Cristal de la Aurora — presentación tipo consola de 16 bits */
+:root {
+  --ink: #05060d;
+  --phosphor: #9fb4ff;
+  --gold: #f4d58d;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at 50% 38%, #131a33 0%, #080a14 45%, #030408 100%);
+  color: #cdd6f4;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+#stage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px;
+}
+
+#frame {
+  position: relative;
+  line-height: 0;
+  border-radius: 6px;
+  padding: 4px;
+  background: linear-gradient(160deg, #3a4166, #11142a 45%, #05060d);
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 42px rgba(92, 124, 255, 0.22),
+    0 26px 60px rgba(0, 0, 0, 0.75);
+}
+
+canvas {
+  display: block;
+  width: 960px;
+  height: 720px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 96px);
+  aspect-ratio: 4 / 3;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  border-radius: 3px;
+}
+
+/* Líneas de escaneo suaves: se apagan con la tecla S */
+#crt {
+  pointer-events: none;
+  position: absolute;
+  inset: 4px;
+  border-radius: 3px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.16) 0px,
+      rgba(0, 0, 0, 0.16) 1px,
+      rgba(255, 255, 255, 0.015) 2px,
+      rgba(255, 255, 255, 0.015) 3px
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+}
+body.no-crt #crt { display: none; }
+
+#hint {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #6f7ba8;
+  user-select: none;
+}
+#hint b { color: var(--gold); font-weight: 600; }
+
+#fatal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  padding: 32px;
+  background: #12060a;
+  color: #ffb4c0;
+  font-family: ui-monospace, Consolas, monospace;
+  overflow: auto;
+}
+#fatal h1 { font-size: 20px; color: #ff6b81; }
+#fatal pre { white-space: pre-wrap; font-size: 13px; line-height: 1.5; }
+
+@media (max-width: 640px) {
+  #hint { display: none; }
+  #stage { gap: 0; padding: 6px; }
+  canvas { max-height: 100vh; }
+}
