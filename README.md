@@ -2,9 +2,19 @@
 
 Un JRPG original con estética de **Final Fantasy de SNES**, hecho desde cero con HTML5 Canvas, JavaScript moderno y **cero dependencias**. Todo el arte pixelado, la música chiptune y los efectos de sonido se generan por código.
 
+**▶ Juega online:** <https://josneto12.github.io/cristal-de-la-aurora/>
+
+[![Pruebas y despliegue](https://github.com/JosNeto12/cristal-de-la-aurora/actions/workflows/pages.yml/badge.svg)](https://github.com/JosNeto12/cristal-de-la-aurora/actions/workflows/pages.yml)
+
 ![Pantalla de título](shots/final-title.png)
 
 ## Cómo jugar
+
+### Online
+
+Abre <https://josneto12.github.io/cristal-de-la-aurora/>. Cada push a `main` ejecuta las pruebas y publica la nueva versión automáticamente.
+
+### En local
 
 ### Opción rápida (Windows)
 
