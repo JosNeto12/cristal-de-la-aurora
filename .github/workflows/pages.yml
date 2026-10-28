@@ -1,0 +1,68 @@
+name: Pruebas y despliegue
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Motor de audio
+        run: node tests/audio.mjs
+      - name: Validación de datos
+        run: node tests/validate.mjs
+      - name: Simulación de combate
+        run: node tests/battle-sim.mjs
+      - name: Menús de batalla
+        run: node tests/battle-flow.mjs
+      - name: Recorrido completo
+        run: node tests/playthrough.mjs
+
+  build:
+    name: Preparar sitio
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copiar archivos del juego
+        run: |
+          mkdir -p _site
+          cp index.html styles.css .nojekyll _site/
+          cp -r src _site/
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Publicar
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
